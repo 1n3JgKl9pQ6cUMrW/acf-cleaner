@@ -34,11 +34,11 @@ It scans for both empty and orphaned records and removes them with one click.
 
 ###How to use?
 
-1. I made the plug-in for my own workflow, so be aware that all your ACF fieldnames (the #ID's, not their labels) must start with `ACF__`  (case insensitive), like `ACF__myname` or `ACF__4421jaQ` or `ACF_title_1_page_3`
-2. Install the plug-in at `wp-uploads/plugins` and activate it, like all plug-ins
-3. Navigate to `tools/acf cleaner` and see all your empty / orphaned records (when prefixed by `ACF__`)
-4. When records are found, you can **(re-) check** the database or **clean** it; simply enter `clean` in the inputfield (to prevent accidentally hitting the "ACF clean" button) and submit the form
-5. When any records are encountered the plug-in will clean them and show you the results of the SQL cleaning actions
+1. I made the plug-in for my own workflow, so be aware that all your ACF fieldnames (the #ID's, not their labels) must start with `ACF__`  (case insensitive), like `ACF__myname` or `ACF__4421jaQ` or `ACF_title_1_page_3`.
+2. Install the plug-in at `wp-uploads/plugins` and activate it, like all plug-ins.
+3. Navigate to `tools/acf cleaner` and see all your empty / orphaned records (when prefixed by `ACF__`).
+4. When records are found, you can **(re-) check** the database or **clean** it; simply enter `clean` in the inputfield (to prevent accidentally hitting the "ACF clean" button) and submit the form.
+5. When any records are encountered the plug-in will clean them and show you the results of the SQL cleaning actions.
 
 ----------
 
