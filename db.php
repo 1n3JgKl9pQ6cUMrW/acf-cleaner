@@ -10,6 +10,14 @@
 
 --------------------------------------------------- */
 
+/* Exit if accessed directly */
+
+  if (!defined('ABSPATH')) {
+
+    exit;
+
+  }
+
 /* Only parse code when included by parent */
 
   if(!defined('ACF_CLEANER')) {

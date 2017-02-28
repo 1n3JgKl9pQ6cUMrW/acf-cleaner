@@ -1,5 +1,11 @@
 <?php
 
+/* Exit if accessed directly */
+
+if ( ! defined( 'ABSPATH' ) ) {
+  exit;
+}
+
 $acf_ajax = strpos($_SERVER['HTTP_ACCEPT'], 'application') !== false?'false':'true';
 $acf_clean = false;
 
@@ -74,7 +80,7 @@ $acf_clean = false;
 <?php
 
   define('ACF_CLEANER', true);
-  require_once('db.php');
+  require __DIR__ . '/db.php'
 
 ?>
 </div>
