@@ -1,7 +1,7 @@
 <?php
 
 /*
-  Plugin Name: AFC cleaner
+  Plugin Name: ACF cleaner
   Plugin URI: https://github.com/1n3JgKl9pQ6cUMrW/acf-cleaner
   Description: Remove empty and orphaned ACF entries
   Version: 1.1
