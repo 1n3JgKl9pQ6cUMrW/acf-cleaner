@@ -101,7 +101,7 @@ $result = null;
 
     mysqli_free_result($result);
 
-/* When no ACF-field is existing at all, all ACF-values must be seen as 'orphan' */
+/* When no ACF-field is existing at all, all ACF-values must be seen as 'orphaned' (and removed) */
 
   if (empty(($array_fields))) {
 
