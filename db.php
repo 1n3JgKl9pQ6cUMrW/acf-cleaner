@@ -77,7 +77,7 @@ $connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 /* --------------------------------------------------- */
 /* --------------------------------------------------- */
 
-$query = 'SELECT `post_name` FROM `wp_posts` WHERE `post_type` LIKE "%acf%-field%"';
+$query = 'SELECT `post_name` FROM `wp_posts` WHERE `post_type` LIKE "acf-field%"';
 $result = null;
 
   if (!$result = $connection -> query($query)) {
@@ -100,6 +100,14 @@ $result = null;
       }
 
     mysqli_free_result($result);
+
+/* When no ACF-field is existing at all, all ACF-values must be seen as 'orphan' */
+
+  if (empty(($array_fields))) {
+
+    $array_fields[0] = 'acf_null';
+
+  }
 
 /* No ACF-fields found at all */
 
