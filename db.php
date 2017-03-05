@@ -222,7 +222,7 @@ $result = null;
 /* --------------------------------------------------- */
 /* --------------------------------------------------- */
 
-$query = 'SELECT `meta_id` FROM `wp_postmeta` WHERE upper(`meta_key`) LIKE "ACF__%" AND `meta_value` LIKE ""';
+$query = 'SELECT `meta_id` FROM `wp_postmeta` WHERE upper(`meta_key`) LIKE "' . $acf_prefix . '%" AND `meta_value` LIKE ""';
 $result = null;
 
   if (!$result = $connection -> query($query)) {

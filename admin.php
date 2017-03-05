@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $acf_ajax = strpos($_SERVER['HTTP_ACCEPT'], 'application') !== false?'false':'true';
 $acf_clean = false;
+$acf_prefix = 'ACF__';
 
   if ($acf_ajax == "true") {
 
@@ -22,9 +23,23 @@ $acf_clean = false;
 
 <?php
 
+/* Allow custom prefixes for ACF names */
+
+if (isset($_COOKIE['acf_prefix'])) {
+
+    if (!empty($_COOKIE['acf_prefix']) && strlen($_COOKIE['acf_prefix']) > 3) {
+
+      $acf_prefix = $_COOKIE['acf_prefix'];
+
+    }
+
+}
+
+/* Check or clean the database */
+
   if (isset($_POST['clean'])) {
 
-    if ($_POST['clean'] == 'clean') {
+    if ($_POST['clean'] === 'clean') {
 
       $acf_clean = true;
 
@@ -48,7 +63,7 @@ $acf_clean = false;
 
   <div class="notice notice-warning is-dismissible">
     <p>
-      <?php printf( __('Before you do any cleaning <a href="%1$s" target="%2$s" title="view plug-in (external)">backup</a> your database first.<br>This tool only proceeds (ACF) fieldnames starting with <code>ACF__</code> (case-insensitive).', 'acf_cleaner'), 'https://wordpress.org/plugins/wp-dbmanager/', '_blank'); ?>
+      <?php printf( __('Before you do any cleaning <a href="%1$s" target="%2$s" title="view plug-in (external)">backup</a> your database first.<br>This tool only proceeds (ACF) fieldnames with a consistent prefix, like <code>ACF__</code> (case-insensitive).', 'acf_cleaner'), 'https://wordpress.org/plugins/wp-dbmanager/', '_blank'); ?>
     </p>
   </div>
 
@@ -58,9 +73,25 @@ $acf_clean = false;
 
 ?>
 
-  <form method="post" action="#">
+  <script>
+
+/* Save alternative prefix as a cookie (don't mesh the database...) */
+
+    function acf_prefix_save() {
+
+      document.cookie = "acf_prefix=" + document.getElementById("acf_prefix").value + ";";
+
+    }
+
+  </script>
+
+  <form method="post" action="#" onsubmit="acf_prefix_save();">
 
     <table class="form-table">
+      <tr valign="top">
+      <th scope="row"><?php _e('Field prefix (at least 3 chrs.) :', 'acf_cleaner'); ?></th>
+      <td><input type="text" name="prefix" id="acf_prefix" value="<?php echo $acf_prefix; ?>" placeholder="ACF__"></td>
+      </tr>
       <tr valign="top">
       <th scope="row"><?php printf( __('Type <code>%1$s</code> before submit :', 'acf_cleaner'), 'clean'); ?></th>
       <td><input type="text" name="clean" value="" placeholder="..."></td>
@@ -69,7 +100,7 @@ $acf_clean = false;
 
     <p>
       <button data-action="acf-clean" class="button button-primary" type="submit"><?php _e('ACF <b>clean</b>', 'acf_cleaner'); ?></button>
-      <button data-action="acf-check" class="button button-secondary" type="button" onclick="location.href=location.href;"><?php _e('ACF <b>check</b>', 'acf_cleaner'); ?></button>
+      <button data-action="acf-check" class="button button-secondary" type="button" onclick="acf_prefix_save();location.href=location.href;"><?php _e('ACF <b>check</b>', 'acf_cleaner'); ?></button>
     </p>
 
   </form>
