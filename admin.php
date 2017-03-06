@@ -59,11 +59,19 @@ if (isset($_COOKIE['acf_prefix'])) {
 
   } else {
 
+  $acf_wpml = false;
+
+  if ( function_exists('icl_object_id') ) {
+
+   $acf_wpml = '<br><b>WPML notice :</b> when restoring ACF-entries from trash, <i>false positives</i> can show up as <i>orphans</i>. Re-save all pages (that used those entries) before any cleaning.';
+
+  }
+
 ?>
 
   <div class="notice notice-warning is-dismissible">
     <p>
-      <?php printf( __('Before you do any cleaning <a href="%1$s" target="%2$s" title="view plug-in (external)">backup</a> your database first.<br>This tool only proceeds (ACF) fieldnames with a consistent prefix, like <code>ACF__</code> (case-insensitive).', 'acf_cleaner'), 'https://wordpress.org/plugins/wp-dbmanager/', '_blank'); ?>
+      <?php printf( __('Before you do any cleaning <a href="%1$s" target="%2$s" title="view plug-in (external)">backup</a> your database first.<br>This tool only proceeds (ACF) fieldnames with a consistent prefix, like <code>ACF__</code> (case-insensitive).' . $acf_wpml, 'acf_cleaner'), 'https://wordpress.org/plugins/wp-dbmanager/', '_blank'); ?>
     </p>
   </div>
 
