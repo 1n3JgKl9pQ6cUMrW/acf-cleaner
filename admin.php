@@ -27,7 +27,7 @@ $acf_prefix = 'ACF__';
 
 if (isset($_COOKIE['acf_prefix'])) {
 
-    if (!empty($_COOKIE['acf_prefix']) && strlen($_COOKIE['acf_prefix']) > 3) {
+    if (!empty($_COOKIE['acf_prefix']) && strlen($_COOKIE['acf_prefix']) > 2) {
 
       $acf_prefix = $_COOKIE['acf_prefix'];
 

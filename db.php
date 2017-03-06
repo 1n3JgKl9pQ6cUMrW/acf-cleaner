@@ -123,7 +123,7 @@ $result = null;
 /* --------------------------------------------------- */
 /* --------------------------------------------------- */
 
-    $query = 'SELECT `meta_id` FROM `wp_postmeta` WHERE upper(`meta_key`) LIKE "_ACF__%" AND `meta_value` NOT IN (' . implode(',', array_map('acf_quote', $array_fields)) . ')';
+    $query = 'SELECT `meta_id` FROM `wp_postmeta` WHERE upper(`meta_key`) LIKE "_' . $acf_prefix . '%" AND `meta_value` NOT IN (' . implode(',', array_map('acf_quote', $array_fields)) . ')';
     $result = null;
 
       if(count($array_fields)) {
