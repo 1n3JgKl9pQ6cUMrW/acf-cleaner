@@ -63,7 +63,7 @@ if (isset($_COOKIE['acf_prefix'])) {
 
   if ( function_exists('icl_object_id') ) {
 
-   $acf_wpml = '<br><b>WPML notice :</b> when restoring ACF-entries from trash, <i>false positives</i> can show up as <i>orphans</i>. Re-save all pages (that used those entries) before any cleaning.';
+   $acf_wpml = '<br><b>WPML notice :</b> when restoring ACF-entries from trash, <i>false positives</i> can show up as orphans. Re-save all pages (containing those entries) before cleaning.';
 
   }
 
