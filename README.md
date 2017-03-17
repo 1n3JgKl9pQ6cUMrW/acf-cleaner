@@ -40,7 +40,6 @@ It scans for both empty and orphaned records and removes them with one click.
 4. When records are found, you can **(re-) check** the database or **clean** it; simply enter `clean` in the inputfield (to prevent accidentally hitting the "ACF clean" button) and submit the form.
 5. When any records are encountered the plug-in will clean them and show you the results of the SQL cleaning actions.
 6. More info - check the forum @ https://support.advancedcustomfields.com/forums/topic/plug-in-acf-cleaner-free/
-
 ----------
 
 ![WordPress - ACF cleaner](acf-cleaner_screenshot.png "WordPress - ACF cleaner")

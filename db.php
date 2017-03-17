@@ -45,10 +45,14 @@ $msg = false;
 $txt = false;
 $inf = '';
 $cnt = 0;
+$cnt_fields = 0;
+$cnt_values = 0;
+$acf_empty = 0;
+$acf_orphan = 0;
 $sql = 0;
 
-$inf .= '<h3>Database : ' . DB_NAME . ' // wp_postmeta</h3>';
-$inf .= '<b><span id="acf_cnt">0</span> entries</b> found, after performing <a onclick="(function($){try{$(\'#acf_help\').toggle();}catch(e){}}(jQuery));" style="text-decoration:underline;cursor:pointer;" title="query info"><span id="acf_sql">0</span>#5 queries</a> in total.';
+$inf .= '<h3>Database : ' . DB_NAME . ' // <span id="acf_total">0</span> ACF-records</h3>';
+$inf .= '<b><span id="acf_cnt">0</span> entries</b> found (in <span id="acf_fields">0</span> ACF-fields / <span id="acf_values">0</span> ACF-values), after performing <a onclick="(function($){try{$(\'#acf_help\').toggle();}catch(e){}}(jQuery));" style="text-decoration:underline;cursor:pointer;" title="query info"><span id="acf_sql">0</span>#5 queries</a>.';
 $inf .= '<p><ol id="acf_help" style="display:none;">';
 $inf .= '<li>Get all ACF-field names.</li>';
 $inf .= '<li>Get <b>orphaned</b> parent entries (<i>field ID</i>).</li>';
@@ -117,13 +121,16 @@ $result = null;
 
     }
 
+
+  $cnt_fields = count($array_fields);
+
 /* --------------------------------------------------- */
 /* --------------------------------------------------- */
 /* 2#3 - Get all orphaned ACF-field entries */
 /* --------------------------------------------------- */
 /* --------------------------------------------------- */
 
-    $query = 'SELECT `meta_id` FROM `wp_postmeta` WHERE upper(`meta_key`) LIKE "_' . $acf_prefix . '%" AND `meta_value` NOT IN (' . implode(',', array_map('acf_quote', $array_fields)) . ')';
+    $query = 'SELECT `meta_id` FROM `wp_postmeta` WHERE upper(`meta_key`) LIKE "_' . strtoupper($acf_prefix) . '%" AND `meta_value` NOT IN (' . implode(',', array_map('acf_quote', $array_fields)) . ')';
     $result = null;
 
       if(count($array_fields)) {
@@ -184,7 +191,7 @@ $result = null;
 
       }
 
-    _e('<h4>ORPHANED ENTRIES</h4>', 'acf_cleaner');
+    _e('<h4>ORPHANED ENTRIES <span id="acf_orphan" style="color:#888;">#0</span></h4>', 'acf_cleaner');
     echo '<table class="widefat fixed striped">';
     echo '<thead><tr><td>Entry</td><td>Type</td><td><code>meta_id</code></td><td><code>post_id</code></td><td><code>meta_key</code></td><td><code>meta_value</code></td></tr></thead>';
     echo '<tfoot><tr><td>Entry</td><td>Type</td><td><code>meta_id</code></td><td><code>post_id</code></td><td><code>meta_key</code></td><td><code>meta_value</code></td></tr></tfoot><tbody>';
@@ -199,6 +206,7 @@ $result = null;
           while ($row = $result -> fetch_assoc()) {
 
             $i++;
+            $acf_orphan++;
 
             echo '<tr>';
             echo '<td>' . sprintf('%03d', $i) . '</td>';
@@ -230,7 +238,7 @@ $result = null;
 /* --------------------------------------------------- */
 /* --------------------------------------------------- */
 
-$query = 'SELECT `meta_id` FROM `wp_postmeta` WHERE upper(`meta_key`) LIKE "' . $acf_prefix . '%" AND `meta_value` LIKE ""';
+$query = 'SELECT `meta_id` FROM `wp_postmeta` WHERE upper(`meta_key`) LIKE "' . strtoupper($acf_prefix) . '%" AND `meta_value` LIKE ""';
 $result = null;
 
   if (!$result = $connection -> query($query)) {
@@ -279,7 +287,7 @@ $result = null;
 
       }
 
-  _e('<h4>EMPTY ENTRIES</h4>', 'acf_cleaner');
+  _e('<h4>EMPTY ENTRIES <span id="acf_empty" style="color:#888;">#0</span></h4>', 'acf_cleaner');
   echo '<table class="widefat fixed striped">';
   echo '<thead><tr><td>Entry</td><td>Type</td><td><code>meta_id</code></td><td><code>post_id</code></td><td><code>meta_key</code></td><td><code>meta_value</code></td></tr></thead>';
   echo '<tfoot><tr><td>Entry</td><td>Type</td><td><code>meta_id</code></td><td><code>post_id</code></td><td><code>meta_key</code></td><td><code>meta_value</code></td></tr></tfoot><tbody>';
@@ -294,6 +302,7 @@ $result = null;
           while ($row = $result -> fetch_assoc()) {
 
             $i++;
+            $acf_empty++;
             echo '<tr>';
             echo '<td>' . sprintf('%03d', $i) . '</td>';
             echo '<td><code>empty</code></td>';
@@ -347,9 +356,57 @@ $result = null;
 
   }
 
+$query = 'SELECT `meta_id` FROM `wp_postmeta` WHERE upper(`meta_key`) LIKE "%' . strtoupper($acf_prefix) . '%"';
+$result = null;
+
+  if (!$result = $connection -> query($query)) {
+
+    // 2DO...
+
+  }
+
+  if ($result) {
+
+    $cnt_values = mysqli_num_rows($result);
+    mysqli_free_result($result);
+
+  }
+
+/* Close the connection */
+
+  mysqli_close($connection);
+
+/* When cleaning, count is always zero */
+
+  if ($acf_clean) {
+
+    $cnt = 0;
+
+  }
+
 /* Update the totals-count, without object-buffering */
 
-  echo '<script>(function($){try{$("#acf_cnt").text(' . $cnt . ');$("#acf_sql").text(' . $sql . ');}catch(e){}}(jQuery));</script>';
+  echo '<script>(function($) {
+
+          try {
+
+            $("#acf_cnt").text("' . $cnt . '");
+            $("#acf_orphan").text("#' . $acf_orphan . '");
+            $("#acf_empty").text("#' . $acf_empty . '");
+            $("#acf_fields").text("' . $cnt_fields . '");
+            $("#acf_values").text("' . $cnt_values . '");
+            $("#acf_total").text("' . (intval($cnt_fields) + intval($cnt_values)) . '");
+            $("#acf_sql").text("' . $sql . '");
+
+          } catch(e) {
+
+            /* 2DO */
+
+          }
+
+        } (jQuery));
+
+  </script>';
 
   if ($acf_clean == true) {
 
