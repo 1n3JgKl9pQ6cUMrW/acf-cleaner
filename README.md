@@ -32,7 +32,7 @@ And when renaming the fields #ID (which can happen, in early stages of developme
 
 It scans for both empty and orphaned records and removes them with one click.
 
-###How to use?
+### How to use?
 
 1. Be aware that all your ACF fieldname #ID's (the #ID's, not the labels) must have a consistent prefix, like `ACF__`  (case insensitive), which will end up in something like `ACF__myname` or `ACF__4421jaQ` or `ACF_title_1_page_3`.
 2. Install the plug-in at `wp-uploads/plugins` and activate it, like all plug-ins.
