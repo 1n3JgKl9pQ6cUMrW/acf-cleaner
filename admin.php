@@ -19,7 +19,7 @@ $acf_prefix = 'ACF__';
 ?>
 
 <div class="wrap">
-  <h2><?php _e('ACF cleaner', 'acf_cleaner'); ?></h2>
+  <h2><?php _e('ACF Cleaner', 'acf_cleaner'); ?></h2>
 
 <?php
 

@@ -1,8 +1,8 @@
-# ACF cleaner
+# ACF Cleaner
 
-![WordPress - ACF cleaner](acf-cleaner_logotype.png "WordPress - ACF cleaner")
+![WordPress - ACF Cleaner](acf-cleaner_logotype.png "WordPress - ACF Cleaner")
 
-Advanced Custom Field cleaner / remove empty and orphaned ACF entries from your WordPress database.
+Advanced Custom Field Cleaner / remove empty and orphaned ACF entries from your WordPress database.
 
 ----------
 
@@ -28,7 +28,7 @@ And when renaming the fields #ID (which can happen, in early stages of developme
 
 ----------
 
-**This is where ACF cleaner comes in;**
+**This is where ACF Cleaner comes in;**
 
 It scans for both empty and orphaned records and removes them with one click.
 
@@ -42,6 +42,6 @@ It scans for both empty and orphaned records and removes them with one click.
 6. More info - check the forum @ https://support.advancedcustomfields.com/forums/topic/plug-in-acf-cleaner-free/
 ----------
 
-![WordPress - ACF cleaner](acf-cleaner_screenshot.png "WordPress - ACF cleaner")
+![WordPress - ACF Cleaner](acf-cleaner_screenshot.png "WordPress - ACF Cleaner")
 
 **Remember; do back-up your database before cleaning, since I can not take any responsibility for the final result.**

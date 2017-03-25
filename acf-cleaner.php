@@ -1,10 +1,10 @@
 <?php
 
 /*
-  Plugin Name: ACF cleaner
+  Plugin Name: ACF Cleaner
   Plugin URI: https://github.com/1n3JgKl9pQ6cUMrW/acf-cleaner
   Description: Remove empty and orphaned ACF entries.
-  Version: 1.2.7
+  Version: 1.3.0
   Author: 1n3JgKl9pQ6cUMrW
   Author URI: https://github.com/1n3JgKl9pQ6cUMrW/
 */
@@ -14,8 +14,8 @@ define('ACF_CLEANER_PAGE', 'acf-cleaner/admin.php');
 
 function acf_cleaner_admin_menu()	{
 
-  add_management_page(__('ACF cleaner', 'acf_cleaner'),
-                      __('ACF cleaner', 'acf_cleaner'),
+  add_management_page(__('ACF Cleaner', 'acf_cleaner'),
+                      __('ACF Cleaner', 'acf_cleaner'),
                       'manage_options',
                       ACF_CLEANER_PAGE);
 

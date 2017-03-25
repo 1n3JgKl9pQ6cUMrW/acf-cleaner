@@ -416,7 +416,7 @@ $result = null;
 
   <div class="notice notice-success is-dismissible hidden" id="acf_succeed">
     <p>
-      <?php _e('<b>Succeeded</b> : ACF cleaner removed <b><span>0</span> entries</b>.', 'acf_cleaner'); ?>
+      <?php _e('<b>Succeeded</b> : ACF Cleaner removed <b><span>0</span> entries</b>.', 'acf_cleaner'); ?>
     </p>
   </div>
 
