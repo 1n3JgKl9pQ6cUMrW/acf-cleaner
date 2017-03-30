@@ -8,7 +8,7 @@ Advanced Custom Fields Cleaner / remove empty and orphaned ACF entries from your
 
 **[Advanced Custom Fields](http://advancedcustomfields.com/)** is a WordPress plug-in that helps you creating advanced, custom fields for better content parsing through custom PHP / SQL queries.
 
-*It works great, but has one disadvantage; it really meshes up your database.*
+*It works great, but has one disadvantage; it really can mesh up your database after a while / during heavy development.*
 
 **Imagine this;**
 
