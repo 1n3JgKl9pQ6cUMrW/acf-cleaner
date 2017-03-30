@@ -3,11 +3,15 @@
 /* Exit if accessed directly */
 
 if ( ! defined( 'ABSPATH' ) ) {
+
   exit;
+
 }
 
 $acf_ajax = strpos($_SERVER['HTTP_ACCEPT'], 'application') !== false?'false':'true';
-$acf_clean = false;
+$acf_clean_1 = false;
+$acf_clean_2 = false;
+$acf_filter = 0;
 $acf_prefix = 'ACF__';
 
   if ($acf_ajax == "true") {
@@ -37,11 +41,32 @@ if (isset($_COOKIE['acf_prefix'])) {
 
 /* Check or clean the database */
 
-  if (isset($_POST['clean'])) {
+  if (isset($_POST['acf_clean'])) {
 
-    if ($_POST['clean'] === 'clean') {
+    if ($_POST['acf_clean'] === 'clean') {
 
-      $acf_clean = true;
+      $acf_filter = $_POST['acf_filter'];
+
+      switch ($acf_filter) {
+
+        case '1':
+          $acf_clean_1 = true;
+        break;
+
+        case '2':
+          $acf_clean_2 = true;
+        break;
+
+        case '3':
+          $acf_clean_1 = true;
+          $acf_clean_2 = true;
+        break;
+
+        default:
+
+          // 2DO
+
+      }
 
     } else {
 
@@ -59,19 +84,11 @@ if (isset($_COOKIE['acf_prefix'])) {
 
   } else {
 
-  $acf_wpml = false;
-
-  if ( function_exists('icl_object_id') ) {
-
-   $acf_wpml = '<br><b>WPML notice :</b> when restoring ACF-entries from trash, <i>false positives</i> can show up as orphans. Re-save all pages (containing those entries) before cleaning.';
-
-  }
-
 ?>
 
   <div class="notice notice-warning is-dismissible">
     <p>
-      <?php printf( __('Before you do any cleaning <a href="%1$s" target="%2$s" title="view plug-in (external)">backup</a> your database first.<br>This tool only proceeds (ACF) fieldnames with a consistent prefix, like <code>ACF__</code> (case-insensitive).' . $acf_wpml, 'acf_cleaner'), 'https://wordpress.org/plugins/wp-dbmanager/', '_blank'); ?>
+      <?php printf( __('Before you do any cleaning <a href="%1$s" target="%2$s" title="view plug-in (external)">backup</a> your database first.<br>This tool only proceeds (ACF) fieldnames with a consistent prefix, like <code>ACF__</code> (case-insensitive).<br><b>Notice :</b> when restoring ACF-entries from trash, <i>false positives</i> can show up as orphans; (re-) save all pages (containing those entries) before cleaning.', 'acf_cleaner'), 'https://wordpress.org/plugins/wp-dbmanager/', '_blank'); ?>
     </p>
   </div>
 
@@ -97,12 +114,22 @@ if (isset($_COOKIE['acf_prefix'])) {
 
     <table class="form-table">
       <tr valign="top">
+      <th scope="row"><?php _e('What to clean :', 'acf_cleaner'); ?></th>
+      <td>
+        <select style="min-width:160px;" name="acf_filter" id="acf_filter">
+          <option value="3"<?php if ($acf_filter == '3' || $acf_filter == '0') { echo ' selected'; } ?>><?php _e('Clean all', 'acf_cleaner'); ?></option>
+          <option value="1"<?php if ($acf_filter == '1') { echo ' selected'; } ?>><?php _e('Orphans only', 'acf_cleaner'); ?></option>
+          <option value="2"<?php if ($acf_filter == '2') { echo ' selected'; } ?>><?php _e('Empty only', 'acf_cleaner'); ?></option>
+        </select>
+      </td>
+      </tr>
+      <tr valign="top">
       <th scope="row"><?php _e('Field prefix (at least 3 chrs.) :', 'acf_cleaner'); ?></th>
-      <td><input type="text" name="prefix" id="acf_prefix" value="<?php echo $acf_prefix; ?>" placeholder="ACF__"></td>
+      <td><input type="text" name="acf_prefix" id="acf_prefix" value="<?php echo $acf_prefix; ?>" placeholder="ACF__" style="min-width:160px;"></td>
       </tr>
       <tr valign="top">
       <th scope="row"><?php printf( __('Type <code>%1$s</code> before submit :', 'acf_cleaner'), 'clean'); ?></th>
-      <td><input type="text" name="clean" value="" placeholder="..."></td>
+      <td><input type="text" name="acf_clean" value="" placeholder="..." style="min-width:160px;"></td>
       </tr>
     </table>
 

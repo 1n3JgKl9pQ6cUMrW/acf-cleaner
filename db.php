@@ -36,7 +36,11 @@ function acf_quote($val) {
 
 /* Define the action (select | delete) */
 
-define('ACF_ACTION', $acf_clean == true?'DELETE':'SELECT *');
+define('ACF_ACTION_1', $acf_clean_1 == true?'DELETE':'SELECT *');
+define('ACF_ACTION_2', $acf_clean_2 == true?'DELETE':'SELECT *');
+
+// echo 'ACF_ACTION_1 : ' . ACF_ACTION_1 . '<br>';
+// echo 'ACF_ACTION_2 : ' . ACF_ACTION_2;
 
 /* Some variables */
 
@@ -44,7 +48,8 @@ $err = false;
 $msg = false;
 $txt = false;
 $inf = '';
-$cnt = 0;
+$cnt_1 = 0;
+$cnt_2 = 0;
 $cnt_fields = 0;
 $cnt_values = 0;
 $acf_empty = 0;
@@ -160,7 +165,7 @@ $result = null;
 
             $array_fields[] = $row['meta_id'];
             $array_fields[] = $row['meta_id'] - 1;
-            $cnt += 2;
+            $cnt_1 += 2;
 
           }
 
@@ -178,7 +183,7 @@ $result = null;
 /* Select or delete ORPHANED entries (parent & child) */
 /* --------------------------------------------------- */
 
-    $query = ACF_ACTION . ' FROM `wp_postmeta` WHERE `meta_id` IN (' . implode(',', $array_fields) . ')';
+    $query = ACF_ACTION_1 . ' FROM `wp_postmeta` WHERE `meta_id` IN (' . implode(',', $array_fields) . ')';
     $result = null;
 
       if(count($array_fields)) {
@@ -198,7 +203,7 @@ $result = null;
 
 /* When entries are available, itterate them */
 
-      if ($result && $acf_clean != true) {
+      if ($result && $acf_clean_1 != true) {
 
         $sql++;
         $i = 0;
@@ -262,7 +267,7 @@ $result = null;
 
           $array_values[] = $row['meta_id'];
           $array_values[] = $row['meta_id'] + 1;
-          $cnt += 2;
+          $cnt_2 += 2;
 
         }
 
@@ -274,7 +279,7 @@ $result = null;
 /* Select or delete EMPTY entries (parent & child) */
 /* --------------------------------------------------- */
 
-    $query = ACF_ACTION . ' FROM `wp_postmeta` WHERE `meta_id` IN (' . implode(',', $array_values) . ')';
+    $query = ACF_ACTION_2 . ' FROM `wp_postmeta` WHERE `meta_id` IN (' . implode(',', $array_values) . ')';
     $result = null;
 
       if(count($array_values)) {
@@ -294,7 +299,7 @@ $result = null;
 
 /* When entries are found, itterate them */
 
-      if ($result && $acf_clean != true) {
+      if ($result && $acf_clean_2 != true) {
 
         $sql++;
         $i = 0;
@@ -372,17 +377,28 @@ $result = null;
 
   }
 
+/* Get final result [what is not-cleaned | left] */
+
+  $cnt_1 = intval($cnt_1);
+  $cnt_2 = intval($cnt_2);
+
+  $acf_total = $cnt_1 + $cnt_2;
+
+  if ($acf_clean_1) {
+
+    $acf_total -= $cnt_1;
+
+  }
+
+  if ($acf_clean_2) {
+
+    $acf_total -= $cnt_2;
+
+  }
+
 /* Close the connection */
 
   mysqli_close($connection);
-
-/* When cleaning, count is always zero */
-
-  if ($acf_clean) {
-
-    $cnt = 0;
-
-  }
 
 /* Update the totals-count, without object-buffering */
 
@@ -390,7 +406,7 @@ $result = null;
 
           try {
 
-            $("#acf_cnt").text("' . $cnt . '");
+            $("#acf_cnt").text("' . $acf_total . '");
             $("#acf_orphan").text("#' . $acf_orphan . '");
             $("#acf_empty").text("#' . $acf_empty . '");
             $("#acf_fields").text("' . $cnt_fields . '");
@@ -408,7 +424,7 @@ $result = null;
 
   </script>';
 
-  if ($acf_clean == true) {
+  if ($acf_clean_1 == true || $acf_clean_2 == true) {
 
 /* Show final result, on top of page */
 
@@ -424,7 +440,23 @@ $result = null;
 
     if (!$err) {
 
-      echo '<script>(function($){try{$("#acf_succeed span").text(' . $cnt . ');$("#acf_succeed").removeClass("hidden");}catch(e){}}(jQuery));</script>';
+/* Get final result [what is cleaned] */
+
+      $acf_total = 0;
+
+      if ($acf_clean_1) {
+
+        $acf_total += $cnt_1;
+
+      }
+
+      if ($acf_clean_2) {
+
+        $acf_total += $cnt_2;
+
+      }
+
+      echo '<script>(function($){try{$("#acf_succeed span").text("' . $acf_total . '");$("#acf_succeed").removeClass("hidden");}catch(e){}}(jQuery));</script>';
 
     }
 
