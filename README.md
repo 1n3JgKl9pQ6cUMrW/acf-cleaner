@@ -35,11 +35,26 @@ It scans for both empty and orphaned records and removes them with one click.
 ### How to use?
 
 1. Be aware that all your ACF fieldname #ID's (the #ID's, not the labels) must have a consistent prefix, like `ACF__`  (case insensitive), which will end up in something like `ACF__myname` or `ACF__4421jaQ` or `ACF_title_1_page_3`.
-2. Install the plug-in at `wp-uploads/plugins` and activate it, like all plug-ins.
+2. Install the plug-in at `wp-uploads/plugins` and activate it, like all plug-ins (see ZIP-remark below).
 3. Navigate to `tools/acf cleaner` and see all your empty / orphaned records (when prefixed by `ACF__`).
 4. When records are found, you can **(re-) check** the database or **clean** it; simply enter `clean` in the inputfield (to prevent accidentally hitting the "ACF clean" button) and submit the form.
 5. When any records are encountered the plug-in will clean them and show you the results of the SQL cleaning actions.
 6. More info - check the forum @ https://support.advancedcustomfields.com/forums/topic/plug-in-acf-cleaner-free/
+
+### ZIP and UNZIP structure
+
+When you download the master-package from Git(Hub), a .zip-file is created on the fly.
+
+Extract the files in this .zip-file and upload them to your sites plugins-structure, like this;
+
+```
+<site_root>
+    | wp-content
+        | plugins
+            | acf-cleaner
+              - all files (mainly .php)
+```
+
 ----------
 
 ![WordPress - ACF Cleaner](acf-cleaner_screenshot.png "WordPress - ACF Cleaner")
