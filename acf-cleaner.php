@@ -4,20 +4,21 @@
   Plugin Name: ACF Cleaner
   Plugin URI: https://github.com/1n3JgKl9pQ6cUMrW/acf-cleaner
   Description: Remove empty and orphaned ACF entries.
-  Version: 1.3.5
+  Version: 1.3.7
   Author: 1n3JgKl9pQ6cUMrW
   Author URI: https://github.com/1n3JgKl9pQ6cUMrW/
 */
 
 add_action('admin_menu', 'acf_cleaner_admin_menu');
-define('ACF_CLEANER_PAGE', 'acf-cleaner/admin.php');
+define('ACF_CLEANER_PAGE', 'acf-cleaner/acf-cleaner-admin.php');
 
 function acf_cleaner_admin_menu()	{
 
-  add_management_page(__('ACF Cleaner', 'acf_cleaner'),
+  add_management_page(__('ACF Cleaner | Manage', 'acf_cleaner'),
                       __('ACF Cleaner', 'acf_cleaner'),
                       'manage_options',
-                      ACF_CLEANER_PAGE);
+                      ACF_CLEANER_PAGE,
+                      '');
 
 }
 
@@ -36,7 +37,7 @@ function acf_cleaner_manage_link($links, $file) {
 
     if ($file == $this_plugin) {
 
-      $settings_link = '<a href="admin.php?page=' . ACF_CLEANER_PAGE . '">' . __('Manage', 'duplicator') . '</a>';
+      $settings_link = '<a href="tools.php?page=' . ACF_CLEANER_PAGE . '" title="' . __('Use this plugin', 'acf_cleaner') . '">' . __('Manage', 'acf_cleaner') . '</a>';
       array_unshift($links, $settings_link);
 
     }
@@ -51,7 +52,7 @@ function acf_cleaner_meta_links($links, $file) {
 
   if ($file == $plugin) {
 
-    $links[] = '<a href="admin.php?page=' . ACF_CLEANER_PAGE . '" title="' . __('Use this plugin', 'acf_cleaner') . '">' . __('Manage', 'acf_cleaner') . '</a>';
+    $links[] = '<a href="tools.php?page=' . ACF_CLEANER_PAGE . '" title="' . __('Use this plugin', 'acf_cleaner') . '">' . __('Manage', 'acf_cleaner') . '</a>';
     return $links;
 
   }

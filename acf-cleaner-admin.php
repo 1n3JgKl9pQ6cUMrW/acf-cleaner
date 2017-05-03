@@ -146,7 +146,7 @@ if (isset($_COOKIE['acf_prefix'])) {
 <?php
 
   define('ACF_CLEANER', true);
-  require __DIR__ . '/db.php'
+  require __DIR__ . '/acf-cleaner-queries.php'
 
 ?>
 </div>
