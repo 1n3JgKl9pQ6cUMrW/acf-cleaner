@@ -1,6 +1,6 @@
 # ACF Cleaner
 
-![WordPress - ACF Cleaner](acf-cleaner_logotype.png "WordPress - ACF Cleaner")
+![WordPress - ACF Cleaner](acf-cleaner-logotype.png "WordPress - ACF Cleaner")
 
 Advanced Custom Fields Cleaner / remove empty and orphaned ACF entries from your WordPress database.
 
@@ -57,6 +57,6 @@ Extract the files in this .zip-file and upload them to your sites plugins-struct
 
 ----------
 
-![WordPress - ACF Cleaner](acf-cleaner_screenshot.png "WordPress - ACF Cleaner")
+![WordPress - ACF Cleaner](acf-cleaner-screenshot.png "WordPress - ACF Cleaner")
 
 **Remember; do back-up your database before cleaning, since I can not take any responsibility for the final result.**
