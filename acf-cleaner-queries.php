@@ -1,5 +1,7 @@
 <?php
 
+// $acf_prefix = (preg_replace('#_#', '\_', $acf_prefix));
+
 /* ---------------------------------------------------
 
   1st query : get all ACF-field names
@@ -86,7 +88,7 @@ $connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 /* --------------------------------------------------- */
 /* --------------------------------------------------- */
 
-$query = 'SELECT `post_name` FROM `wp_posts` WHERE `post_type` LIKE "acf-field%"';
+$query = 'SELECT `post_name` FROM `' . $acf_db_prefix . 'posts` WHERE `post_type` LIKE "acf-field%"';
 $result = null;
 
   if (!$result = $connection -> query($query)) {
@@ -135,7 +137,7 @@ $result = null;
 /* --------------------------------------------------- */
 /* --------------------------------------------------- */
 
-    $query = 'SELECT `meta_id` FROM `wp_postmeta` WHERE upper(`meta_key`) LIKE "_' . strtoupper($acf_prefix) . '%" AND `meta_value` NOT IN (' . implode(',', array_map('acf_quote', $array_fields)) . ')';
+    $query = 'SELECT `meta_id` FROM `' . $acf_db_prefix . 'postmeta` WHERE upper(`meta_key`) LIKE "_' . strtoupper($acf_prefix) . '%" AND `meta_value` NOT IN (' . implode(',', array_map('acf_quote', $array_fields)) . ')';
     $result = null;
 
       if(count($array_fields)) {
@@ -183,7 +185,7 @@ $result = null;
 /* Select or delete ORPHANED entries (parent & child) */
 /* --------------------------------------------------- */
 
-    $query = ACF_ACTION_1 . ' FROM `wp_postmeta` WHERE `meta_id` IN (' . implode(',', $array_fields) . ')';
+    $query = ACF_ACTION_1 . ' FROM `' . $acf_db_prefix . 'postmeta` WHERE `meta_id` IN (' . implode(',', $array_fields) . ')';
     $result = null;
 
       if(count($array_fields)) {
@@ -243,7 +245,7 @@ $result = null;
 /* --------------------------------------------------- */
 /* --------------------------------------------------- */
 
-$query = 'SELECT `meta_id` FROM `wp_postmeta` WHERE upper(`meta_key`) LIKE "' . strtoupper($acf_prefix) . '%" AND `meta_value` LIKE ""';
+$query = 'SELECT `meta_id` FROM `' . $acf_db_prefix . 'postmeta` WHERE upper(`meta_key`) LIKE "' . strtoupper($acf_prefix) . '%" AND `meta_value` LIKE ""';
 $result = null;
 
   if (!$result = $connection -> query($query)) {
@@ -279,7 +281,7 @@ $result = null;
 /* Select or delete EMPTY entries (parent & child) */
 /* --------------------------------------------------- */
 
-    $query = ACF_ACTION_2 . ' FROM `wp_postmeta` WHERE `meta_id` IN (' . implode(',', $array_values) . ')';
+    $query = ACF_ACTION_2 . ' FROM `' . $acf_db_prefix . 'postmeta` WHERE `meta_id` IN (' . implode(',', $array_values) . ')';
     $result = null;
 
       if(count($array_values)) {
@@ -361,7 +363,7 @@ $result = null;
 
   }
 
-$query = 'SELECT `meta_id` FROM `wp_postmeta` WHERE upper(`meta_key`) LIKE "%' . strtoupper($acf_prefix) . '%"';
+$query = 'SELECT `meta_id` FROM `' . $acf_db_prefix . 'postmeta` WHERE upper(`meta_key`) LIKE "%' . strtoupper($acf_prefix) . '%"';
 $result = null;
 
   if (!$result = $connection -> query($query)) {
