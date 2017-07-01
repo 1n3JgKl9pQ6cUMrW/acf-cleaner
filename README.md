@@ -57,6 +57,6 @@ Extract the files in this .zip-file and upload them to your sites plugins-struct
 
 ----------
 
-![WordPress - ACF Cleaner](acf-cleaner-screenshot.png "WordPress - ACF Cleaner")
+![WordPress - ACF Cleaner](https://raw.githubusercontent.com/1n3JgKl9pQ6cUMrW/acf-cleaner/04d796be6194654d382c59419805c93a746c5c65/acf-cleaner-screenshot.png "WordPress - ACF Cleaner")
 
 **Remember; do back-up your database before cleaning, since I can not take any responsibility for the final result.**
