@@ -1,6 +1,6 @@
 # ACF Cleaner
 
-![WordPress - ACF Cleaner](acf-cleaner-logotype.png "WordPress - ACF Cleaner")
+![WordPress - ACF Cleaner](https://raw.githubusercontent.com/1n3JgKl9pQ6cUMrW/acf-cleaner/04d796be6194654d382c59419805c93a746c5c65/acf-cleaner-logotype.png "WordPress - ACF Cleaner")
 
 Advanced Custom Fields Cleaner / remove empty and orphaned ACF entries from your WordPress database.
 
