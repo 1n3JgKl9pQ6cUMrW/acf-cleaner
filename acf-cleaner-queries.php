@@ -89,7 +89,7 @@ $connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 /* --------------------------------------------------- */
 
 $query = 'SELECT `post_name` FROM `' . $acf_db_prefix . 'posts` WHERE `post_type` LIKE "acf-field%"';
-$result = null;
+$result = $array_fields = null;
 
   if (!$result = $connection -> query($query)) {
 

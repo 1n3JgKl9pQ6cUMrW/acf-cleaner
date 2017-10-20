@@ -4,7 +4,7 @@
   Plugin Name: ACF Cleaner
   Plugin URI: https://github.com/1n3JgKl9pQ6cUMrW/acf-cleaner
   Description: Remove empty and orphaned ACF entries.
-  Version: 1.4.0
+  Version: 1.4.1
   Author: 1n3JgKl9pQ6cUMrW
   Author URI: https://github.com/1n3JgKl9pQ6cUMrW/
 */
